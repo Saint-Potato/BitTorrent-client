@@ -9,11 +9,19 @@ import sys
 # - decode_bencode(b"5:hello") -> b"hello"
 # - decode_bencode(b"10:hello12345") -> b"hello12345"
 def decode_bencode(bencoded_value):
+    #decode strings
     if chr(bencoded_value[0]).isdigit():
         first_colon_index = bencoded_value.find(b":")
         if first_colon_index == -1:
             raise ValueError("Invalid encoded value")
         return bencoded_value[first_colon_index+1:]
+    #decode integers
+    elif chr(bencoded_value[0]) == 'i':
+        integer_start_index = bencoded_value[1]
+        end_index = bencoded_value.find(b"e")
+        if end_index == -1:
+            raise ValueError("Invalid encoded value")
+        return int(bencoded_value[1:end_index])
     else:
         raise NotImplementedError("Only strings are supported at the moment")
 
@@ -25,7 +33,7 @@ def main():
     print("Logs from your program will appear here!", file=sys.stderr)
 
     if command == "decode":
-        bencoded_value = sys.argv[2].encode()
+        bencoded_value = sys.argv[2].encode()  #converts string to bstring
 
         # json.dumps() can't handle bytes, but bencoded "strings" need to be
         # bytestrings since they might contain non utf-8 characters.
