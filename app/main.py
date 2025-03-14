@@ -1,6 +1,6 @@
 import json
 import sys
-
+import bencodepy
 # import bencodepy - available if you need it!
 # import requests - available if you need it!
 
@@ -11,6 +11,8 @@ import sys
 
 def decode_bencode(bencoded_value):
     #decode strings
+    bc = bencodepy.Bencode(encoding = "utf-8")
+    return bc.decode(bencoded_value)
     def extract_string(data):
         length, rest = data.split(b":", 1)
         length = int(length)
@@ -29,6 +31,14 @@ def decode_bencode(bencoded_value):
                 item, data = decode(data)
                 list_decoded.append(item)
             return list_decoded, data[1:]
+        elif chr(data[0] == 'd'):
+            data = b"l" + data[1:]
+            res_list = decode_bencode(data)
+            decoded_dictionary = {}
+            for i in range(len(res_list)):
+                decoded_dictionary[res_list[i]] = res_list[i+1]
+                i+=1
+            return decoded_dictionary
         else:
             raise NotImplementedError("Only strings are supported at the moment")
     decoded_value, _ = decode(bencoded_value)
