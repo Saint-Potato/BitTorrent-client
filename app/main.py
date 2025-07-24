@@ -23,10 +23,14 @@ def main():
 
     elif command == "info":
         torrent_path = sys.argv[2]
-        tracker_url, file_size, info_hash = app.torrent.parse_torrent(torrent_path)
+        tracker_url, file_size, info_hash, piece_length, piece_hashes = app.torrent.parse_torrent(torrent_path)
         print(f"Tracker URL: {tracker_url}")
         print(f"Length: {file_size}")
         print(f"Info Hash: {info_hash}")
+        print(f"Piece Length: {piece_length}")
+        print("Piece Hashes:")
+        for h in piece_hashes:
+            print(h)
 
     else:
         raise NotImplementedError(f"Unknown command {command}")

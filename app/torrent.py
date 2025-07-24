@@ -56,8 +56,12 @@ def parse_torrent(torrent_path):
 
     # Compute SHA-1 hash
     info_hash = hashlib.sha1(encoded_info).hexdigest()
+    # Extract piece length and pieces
+    piece_length = info[b'piece length']
+    pieces = info[b'pieces']
+    piece_hashes = [pieces[i:i+20].hex() for i in range(0, len(pieces), 20)]
 
-    return announce.decode(), length, info_hash
+    return announce.decode(), length, info_hash, piece_length, piece_hashes
 
 
 def bdecode_to_str(obj):
