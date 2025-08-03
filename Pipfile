@@ -16,6 +16,7 @@ name = "pypi"
 requests = "2.31.0"
 aiohttp = "*"
 typing-extensions = "*"
+bitstring = "*"
 
 [dev-packages]
 
