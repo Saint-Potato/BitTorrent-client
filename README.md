@@ -1,34 +1,37 @@
-[![progress-banner](https://backend.codecrafters.io/progress/bittorrent/3bf12a55-e3e0-4a06-852a-b4b477f524c1)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+# BitTorrent Client in Python
 
-This is a starting point for Python solutions to the
-["Build Your Own BitTorrent" Challenge](https://app.codecrafters.io/courses/bittorrent/overview).
+This is a simple BitTorrent client written in Python. It can be used to download files from the BitTorrent network.
 
-In this challenge, you’ll build a BitTorrent client that's capable of parsing a
-.torrent file and downloading a file from a peer. Along the way, we’ll learn
-about how torrent files are structured, HTTP trackers, BitTorrent’s Peer
-Protocol, pipelining and more.
+## Features
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+* Decode bencoded files
+* Get information about a torrent file
+* Find peers for a torrent
+* Download pieces of a file
+* Download a complete file
 
-# Passing the first stage
+## Installation
 
-The entry point for your BitTorrent implementation is in `app/main.py`. Study
-and uncomment the relevant code, and push your changes to pass the first stage:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Saint-Potato/BitTorrent-client.git
+   ```
+2. Install the dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+## Usage
 
 ```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
+./your_bittorrent.sh <command> <args>
 ```
 
-Time to move on to the next stage!
+### Commands
 
-# Stage 2 & beyond
-
-Note: This section is for stages 2 and beyond.
-
-1. Ensure you have `python (3.11)` installed locally
-1. Run `./your_bittorrent.sh` to run your program, which is implemented in
-   `app/main.py`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+* `decode <bencoded_string>`: Decode a bencoded string.
+* `info <torrent_file>`: Get information about a torrent file.
+* `peers <torrent_file>`: Find peers for a torrent.
+* `handshake <torrent_file> <peer_ip>:<peer_port>`: Perform a handshake with a peer.
+* `download_piece -o <output_file> <torrent_file> <piece_index>`: Download a piece of a file.
+* `download -o <output_file> <torrent_file>`: Download a complete file.
